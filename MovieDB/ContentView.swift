@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct ContentView : View {
+    var apiUrl = Configuration.API_MOVIES
+    
+    @State var networkManager = NetworkManager()
+    
     var body: some View {
-        Text("Hello World")
+        NavigationView {
+            List(networkManager.movies.identified(by: \.id)) { movie in
+                MovieRowView(movie: movie)
+            }.navigationBarTitle(Text("Now playing"))
+        }
     }
 }
-
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-#endif
